@@ -1,7 +1,6 @@
 import subprocess
 import time
 from collections import namedtuple
-import sys
 import textwrap
 import random
 
