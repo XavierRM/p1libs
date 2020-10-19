@@ -26,10 +26,8 @@ def show_not_passed(e):
     print("    Not passsed")
     print(textwrap.indent(str(e), "    "))
 
-    
-def run(path, name= None):
-    name = name or f"{path}-test-{str(random.randint(0, 100000000))}"
-    process = subprocess.Popen([path, '--name', name])
+
+def get_app(name):
     desktop = Atspi.get_desktop(0)
     start = time.time()
     timeout = 5
@@ -39,6 +37,18 @@ def run(path, name= None):
         app = next(gen, None)
         if app is None:
             time.sleep(0.6)
+    return app
+
+def get_obj(parent, role= None, name= None):
+    def _check(obj):
+        return role is None or obj.get_role_name() == role and \
+            name is None or obj.get_name() == name
+    return next((obj for _, obj in tree(parent) if _check(obj)), None)
+
+def run(path, name= None):
+    name = name or f"{path}-test-{str(random.randint(0, 100000000))}"
+    process = subprocess.Popen([path, '--name', name])
+    app = get_app(name)
     return (process, app)
 
 def stop(process):
