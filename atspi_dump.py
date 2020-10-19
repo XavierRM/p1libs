@@ -2,7 +2,7 @@
 
 import sys
 
-import e2e
+from p1 import e2e
 
 
 def dump_desktop():
