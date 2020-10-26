@@ -18,16 +18,16 @@ def dump_app(name):
         print(f"App {name} not found in desktop")
         sys.exit(0)
     for path, node in e2e.tree(app):
-        try:
+        interfaces = node.get_interfaces()
+        if 'Action' in interfaces:
             n = node.get_n_actions()
-        except:
+        else:
             n = 0
         actions = [node.get_action_name(i) for i in range(0, n)]
         if actions:
             actions_s = f" actions: {actions}"
         else:
             actions_s = ""
-        interfaces = node.get_interfaces()
         print("  "*len(path),
               f"{path} {node.get_role_name()}({node.get_name()})"
               f" {actions_s}"
