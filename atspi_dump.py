@@ -16,6 +16,7 @@ def dump_app(name):
     app = next((app for _, app in e2e.children(desktop) if app.get_name() == name), None)
     if not app:
         print(f"App {name} not found in desktop")
+        print(f"Try running {__file__} without args to get the list of apps")
         sys.exit(0)
     for path, node in e2e.tree(app):
         interfaces = node.get_interfaces()
