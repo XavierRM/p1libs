@@ -27,7 +27,11 @@ def dump_app(name):
             actions_s = f" actions: {actions}"
         else:
             actions_s = ""
-        print("  "*len(path), f"{path} {node.get_role_name()}({node.get_name()}) {actions_s}",
+        interfaces = node.get_interfaces()
+        print("  "*len(path),
+              f"{path} {node.get_role_name()}({node.get_name()})"
+              f" {actions_s}"
+              f" ifaces: {interfaces}",
               sep= "")
 
 if __name__ == '__main__':
